@@ -1,13 +1,15 @@
 package com.patternhub.collectionsExamples;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
 
     private int id;
     private String name;
     private double salary;
     private long phoneNum;
 
-    static String companyName;
+    public static String companyName;
 
     public Employee(int id, String name, double salary, long phoneNum) {
         this.id = id;

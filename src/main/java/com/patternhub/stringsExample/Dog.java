@@ -1,7 +1,7 @@
 package com.patternhub.stringsExample;
 
 
-import com.patternhub.inheritanceExamples.Animal;
+import com.patternhub.basics.inheritanceExamples.Animal;
 
 public class Dog extends Animal {
     @Override

@@ -4,10 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdvancedFilter {
-    FiledFilter program;
-    FiledFilter product;
+    List<String> program;
+    List<String> product;
+
+//    FiledFilter program;
+//    FiledFilter product;
 }

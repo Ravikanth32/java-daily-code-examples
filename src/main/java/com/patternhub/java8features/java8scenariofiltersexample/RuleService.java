@@ -1,9 +1,6 @@
 package com.patternhub.java8features.java8scenariofiltersexample;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -33,33 +30,45 @@ public class RuleService {
         rules.add(rule8);
     }
 
+    //    public List<Rule> getAllFilteredRules(AdvancedFilter advancedFilter) {
+//        System.out.println("Before Filter Size -> " + rules.size());
+//        Predicate<Rule> programPredicate = rule -> {
+//            FiledFilter program = advancedFilter.getProgram();
+//            if (program.getFilterOperator().equals("equals")) {
+//                System.out.println("-----------------> " + rule.getRuleName());
+//                return rule.getPrograms().stream()
+//                        .anyMatch(item -> {
+//                            System.out.println("Rule Programs Value " + item + " Filter Value " + program.getFilterValue()
+//                                    + " Condition " + (item.equalsIgnoreCase(program.getFilterValue()) || item.equalsIgnoreCase("ALL")));
+//                            return item.equalsIgnoreCase(program.getFilterValue()) || item.equalsIgnoreCase("all");
+//                        });
+//            }
+//            if (program.getFilterOperator().equals("starts")) {
+//                return rule.getPrograms().stream()
+//                        .anyMatch(item -> item.toLowerCase().startsWith(program.getFilterValue().toLowerCase()));
+//            }
+//            if (program.getFilterOperator().equals("contains")) {
+//                return rule.getPrograms().stream()
+//                        .anyMatch(item -> item.toLowerCase().contains(program.getFilterValue().toLowerCase()));
+//            }
+//            return true;
+//        };
+//        List<Rule> filteredRules = rules.stream()
+//                .filter(programPredicate).collect(Collectors.toList());
+//        System.out.println("Before Filter Size -> " + filteredRules.size());
+//        return filteredRules;
+//    }
     public List<Rule> getAllFilteredRules(AdvancedFilter advancedFilter) {
-        System.out.println("Before Filter Size -> " + rules.size());
         Predicate<Rule> programPredicate = rule -> {
-            FiledFilter program = advancedFilter.getProgram();
-            if (program.getFilterOperator().equals("equals")) {
-                System.out.println("-----------------> " + rule.getRuleName());
-                return rule.getPrograms().stream()
-                        .anyMatch(item -> {
-                            System.out.println("Rule Programs Value " + item + " Filter Value " + program.getFilterValue()
-                                    + " Condition " + (item.equalsIgnoreCase(program.getFilterValue()) || item.equalsIgnoreCase("ALL")));
-                            return item.equalsIgnoreCase(program.getFilterValue()) || item.equalsIgnoreCase("all");
-                        });
-            }
-            if (program.getFilterOperator().equals("starts")) {
-                return rule.getPrograms().stream()
-                        .anyMatch(item -> item.toLowerCase().startsWith(program.getFilterValue().toLowerCase()));
-            }
-            if (program.getFilterOperator().equals("contains")) {
-                return rule.getPrograms().stream()
-                        .anyMatch(item -> item.toLowerCase().contains(program.getFilterValue().toLowerCase()));
-            }
-            return true;
+            List<String> program = advancedFilter.getProgram();
+            rule.getPrograms().stream().anyMatch(item -> {
+                return program.contains(item) || program.contains("ALL");
+            });
+            return new HashSet<>(rule.getPrograms()).containsAll(program);
         };
-        List<Rule> filteredRules = rules.stream()
-                .filter(programPredicate).collect(Collectors.toList());
+
+        List<Rule> filteredRules = rules.stream().filter(programPredicate).collect(Collectors.toList());
         System.out.println("Before Filter Size -> " + filteredRules.size());
         return filteredRules;
     }
-
 }

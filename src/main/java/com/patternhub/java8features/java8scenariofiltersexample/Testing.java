@@ -11,8 +11,8 @@ public class Testing {
         //advancedFilter.setProduct(new FiledFilter("IOI","equals"));
 //        startsWithAdvancedFilter.setProgram(new FiledFilter("EQ","equals"));
 //        startsWithAdvancedFilter.setProgram(new FiledFilter("q","contains"));
-        advancedFilter.setProgram(Arrays.asList("SQ","LQ"));
-        advancedFilter.setProgram(Arrays.asList("IOI","TQ"));
+        advancedFilter.setProgram(Arrays.asList("SQ","LQ","GP","EQ"));
+        advancedFilter.setProduct(Arrays.asList("DL","IOI"));
     }
     public static void main(String[] args) {
         RuleService ruleService = new RuleService();
